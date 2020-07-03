@@ -92,7 +92,7 @@ class Environment():
 
     def apply_initial_condition(self, initial_state):
         ''' applies either a scalar value to the entire world field or applies a vector field to the world '''
-        self.world = self.world * initial_state
+        self.world = initial_state
     
         
     def get_velocity_field(self):
@@ -148,7 +148,7 @@ class Environment():
     
     def simulate(self):
         ''' perform forward euler '''
-        history = np.zeros(shape=(self.world.shape[0], int(self.T/self.dt+1)))
+        history = np.zeros(shape=(self.world.shape[0], int(self.T/self.dt)))
         history[:,0] = self.world[:,0]
         self.t = self.dt
         n = 1

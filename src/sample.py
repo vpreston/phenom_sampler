@@ -39,13 +39,16 @@ class Sampler():
         for point in points:
             historyidx = np.abs(point[2] - self.T).argmin() #find the closest time snapshot
             world = self.history[:,historyidx].reshape((self.NI, self.NJ))
-            xidx = np.abs(point[0] - self.x).argmin() #find the closest simulated cell
-            yidx = np.abs(point[1] - self.y).argmin() #find the closest simulated cell
-            obs.append(world[xidx, yidx])
+            f = interpolate.interp2d(self.x, self.y, world, kind=self.interpolator)
+            obs.append(f(point[0], point[1])[0])
         return obs
 
-    def query_snapshot(self, dimensions, time):
+    def query_snapshot(self, dimensions=None, time=0):
         ''' returns a uniformly sampled snapshot of a phenomenon at a given time at the fidelity specified by dimensions '''
+        if dimensions is None: #just default snapshot
+            historyidx = np.abs(time - self.T).argmin()
+            self.snapX, self.snapY = self.x, self.y
+            return self.history[:,historyidx].reshape((self.NI, self.NJ))
         historyidx = np.abs(time - self.T).argmin()
         world = self.history[:,historyidx].reshape((self.NI, self.NJ))
         f = interpolate.interp2d(self.x, self.y, world, kind=self.interpolator)
