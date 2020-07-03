@@ -1,0 +1,30 @@
+Lx : 50
+Ly : 50
+dx : 5
+dy : 5
+T : 60
+dt : 0.1
+seed : 100 #sets random seed
+
+sources :
+  source_1 :
+    lx : 10
+    ly : 10
+    rx : 5
+    ry : 1
+    rate : 0.05
+  source_2 : 
+    lx : 40
+    ly : 40
+    rx : 1
+    ry : 5
+    rate : 0.01
+
+velocity : 
+  u_field :
+    type : 'uniform' #uniform, linear, quadratic, periodic
+    coeffs : [0.5] #single number for uniform flow, two for linear [slope, intercept], three for quadratic [a, b, c], two for periodic [amplitude, period]
+  v_field :
+    type : 'uniform'
+    coeffs : [0.0]
+  corrupt : False #whether to add jitter to the velocity stream

@@ -1,0 +1,9 @@
+Lx : 50
+Ly : 50
+T : 60
+dx : 5
+dy : 5
+dt : 0.1
+
+file : '../data/history.npz'
+interpolator : 'linear' #linear, cubic, quintic
